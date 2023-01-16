@@ -130,3 +130,28 @@ while 1:
 # CSS_SELECTOR
 # recaptcha-checkbox-border
 
+# 時間
+# 下午餐
+# <li>
+#     <div class="data-head">時間</div>
+#     <select id="order_time">
+#         <option value="">請選擇</option>
+#     <option>14:30</option>
+#     </select>
+# </li>
+
+# <div class="relative basic-col">
+#     <div class="select">
+#         <select class="wk-select form-control select-hidden" id="eat_vegetable">
+#             <option>0 位</option>
+#             <option>1 位</option>
+#             <option>2 位</option>
+#         </select>
+#         <div class="select-styled">0 位</div>
+#         <ul class="select-options" style="display: none;">
+#             <li rel="0 位">0 位</li>
+#             <li rel="1 位">1 位</li>
+#             <li rel="2 位">2 位</li>
+#         </ul>
+#     </div>
+# </div>
