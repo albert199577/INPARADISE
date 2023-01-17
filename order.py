@@ -2,6 +2,7 @@ from selenium import webdriver
 
 import os, sys
 import datetime
+import getpass
 
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -10,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 ac = input("Please Enter Your Account :")
-pw = input("Please Your Password :")
+pw = getpass.getpass("Please Your Password :")
 bp = input("Please Enter your Booking peoples :")
 eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
 store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
