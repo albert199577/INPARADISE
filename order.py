@@ -35,9 +35,8 @@ else:
 eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
 eat_time = eat_time_arr[eat_time_num - 1]
 
-store_num_arr = ['微風店', '新莊店']
+store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
 store = store_num_arr[store_num - 1]
-store = 'div.main > table > tr.wk-book-stores.list-tr[data-store-name="' + store +  '"'
 
 date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
 order_date_field = '.dayContainer > span[aria-label="{ch_month} {day}, {year}"]'.format(ch_month=ch_month, day=day, year=year)
@@ -83,39 +82,38 @@ try:
 except:
     print("alert does not Exist in page")
 
-
-# 訂位人數
-book_people = WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.ID, "book_people")))
-# book_people = driver.find_element(By.ID, 'book_people')
-# 填上訂位人數
-book_people.send_keys(bp)
-
-# 點擊日期
-driver.find_element(By.CSS_SELECTOR, '.flatpickr.flatpickr-input').click()
-
-# 點擊下個月
-if this_month == False:
-    driver.find_element(By.CLASS_NAME, 'flatpickr-next-month').click()
-
-# 點擊下個月最後一天
-WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, order_date_field))).click()
-
-# 點擊餐別
-# CSS_SELECTOR
-driver.find_element(By.CLASS_NAME, eat_time).click()
-
-js = "document.body.scrollTo(0, 1000);"
-
-driver.execute_script(js)
-# driver.find_element(By.ID, 'select_store').click()
-
 i = 0
-while 1:
+while i < 1:
     i += 1
     try:
+        # 訂位人數
+        book_people = WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.ID, "book_people")))
+        # book_people = driver.find_element(By.ID, 'book_people')
+        # 填上訂位人數
+        book_people.send_keys(bp)
+
+        # 點擊日期
+        driver.find_element(By.CSS_SELECTOR, '.flatpickr.flatpickr-input').click()
+
+        # 點擊下個月
+        if this_month == False:
+            driver.find_element(By.CLASS_NAME, 'flatpickr-next-month').click()
+
+        # 點擊下個月最後一天
+        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, order_date_field))).click()
+
+        # 點擊餐別
+        # CSS_SELECTOR
+        driver.find_element(By.CLASS_NAME, eat_time).click()
+
+        js = "document.body.scrollTo(0, 1000);"
+
+        driver.execute_script(js)
+
+        driver.find_element(By.ID, 'select_store').click()
+
         # 點擊店別
         # CSS_SELECTOR
-        # WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, store))).click()
         WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, store))).click()
 
         # notfull CSS_SELECTOR calendar-li notfull active
@@ -130,31 +128,16 @@ while 1:
         #     </span>
         # </li>
 
-        # WebDriverWait(driver, 1, 2).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
+        WebDriverWait(driver, 1, 2).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
         print('Can order')
         break;
     except:
         print('Can\'t order')
-        # 設定每兩秒重新按一次餐別
-        sleep(2)
-        WebDriverWait(driver, 3000).until(EC.visibility_of_element_located((By.CLASS_NAME, eat_time))).click()
+        # driver.refresh()
         # driver.close()
-        # os._exit(0)
+        os._exit(0)
 
 
-# <tr class="wk-book-stores list-tr" data-store-name="微風店" data-sort="1">
-# 	<td>
-#         <div class="wk-type-afternoon-tea">
-#             <span class="cell-store">微風店</span>
-#             <span class="cell-meal-times">下午餐</span>
-#         </div>
-#     </td>							
-#     <td>2023-01-29</td>
-#     <td>座位充足</td>
-#     <td>
-#         <i class="fa fa-angle-right" aria-hidden="true" data-header-member-menu=""></i>
-#     </td>						
-# </tr>
 
 
 # 確認訂位頁
