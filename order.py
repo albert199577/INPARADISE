@@ -83,7 +83,7 @@ except:
     print("alert does not Exist in page")
 
 i = 0
-while i < 1:
+while 1:
     i += 1
     try:
         # 訂位人數
@@ -128,14 +128,14 @@ while i < 1:
         #     </span>
         # </li>
 
-        WebDriverWait(driver, 1, 2).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
+        WebDriverWait(driver, 1, 1).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
         print('Can order')
         break;
     except:
         print('Can\'t order')
-        # driver.refresh()
+        driver.refresh()
         # driver.close()
-        os._exit(0)
+        # os._exit(0)
 
 
 
