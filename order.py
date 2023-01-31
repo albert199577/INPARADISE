@@ -3,6 +3,7 @@ from selenium import webdriver
 import os, sys
 import datetime
 import getpass
+import calendar
 
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -22,12 +23,12 @@ year = order_date[0:4]
 int_month = int(order_date[5:7])
 month = order_date[5:7]
 
-day = order_date[8:10]
+day = int(order_date[8:10])
 
 ch_month = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
 ch_month = ch_month[int_month - 1]
 
-if month == now.strftime("%m"):
+if month == now.strftime("%m") or now.strftime("%Y-%m-%d") == datetime.datetime(now.year, now.month, calendar.monthrange(now.year, now.month)[1]).strftime("%Y-%m-%d"):
     this_month = True
 else:
     this_month = False
