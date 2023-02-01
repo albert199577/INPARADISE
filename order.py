@@ -11,11 +11,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+restaurant = int(input("選擇您要訂購餐聽 [1]饗饗 [2]旭集 "))
 ac = input("Please Enter Your Account :")
 pw = getpass.getpass("Please Your Password :")
 bp = input("Please Enter your Booking peoples :")
 eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
-store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
+if restaurant == 1:
+    store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
+    url = "https://www.feastogether.com.tw/booking/2"
+else:
+    store_num = 1
+    url = "https://www.feastogether.com.tw/booking/10"
+
 order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
 
 now = datetime.datetime.now()
@@ -36,7 +43,11 @@ else:
 eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
 eat_time = eat_time_arr[eat_time_num - 1]
 
-store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
+if restaurant == 1:
+    store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
+else:
+    store_num_arr = ['li[rel="旭集信義店"]']
+
 store = store_num_arr[store_num - 1]
 
 date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
@@ -51,7 +62,7 @@ option.add_experimental_option("excludeSwitches", ["enable-logging"]) # 不顯�
 driver = webdriver.Chrome(options = option)
 driver.maximize_window()
 
-driver.get("https://www.feastogether.com.tw/booking/2") # 去到指定頁面
+driver.get(url) # 去到指定頁面
 current_window = driver.current_window_handle
 # 關閉注意事項
 try:
