@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>301</width>
-    <height>366</height>
+    <width>293</width>
+    <height>423</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>饗饗訂位</string>
+   <string>饗賓訂位</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="formLayoutWidget">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>271</width>
-      <height>251</height>
+      <height>366</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -42,24 +42,24 @@
      <property name="bottomMargin">
       <number>15</number>
      </property>
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_account">
        <property name="text">
         <string>饗賓帳號：</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="1" column="1">
       <widget class="QLineEdit" name="line_account"/>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label_password">
        <property name="text">
         <string>饗賓密碼：</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="2" column="1">
       <widget class="QLineEdit" name="line_password">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -72,14 +72,14 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_peoples">
        <property name="text">
         <string>用餐人數：</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="QComboBox" name="comboBox_peoples">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -141,14 +141,14 @@
        </item>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_store">
        <property name="text">
         <string>店別：</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QComboBox" name="comboBox_store">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -177,14 +177,14 @@
        </item>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_eat_time">
        <property name="text">
         <string>餐次：</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QComboBox" name="comboBox_eat_time">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
@@ -221,14 +221,14 @@
        </item>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="label_order_date">
        <property name="text">
         <string>訂餐日期：</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="6" column="1">
       <widget class="QDateEdit" name="dateEdit_order_date">
        <property name="displayFormat">
         <string>yyyy-MM-dd</string>
@@ -242,13 +242,52 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="Label_restaurant">
+       <property name="text">
+        <string>訂購餐廳：</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="comboBox_restaurant">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhLowercaseOnly</set>
+       </property>
+       <property name="currentText">
+        <string>饗饗</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="duplicatesEnabled">
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>饗饗</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>旭集</string>
+        </property>
+       </item>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QDialogButtonBox" name="buttonBox">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>300</y>
+      <y>340</y>
       <width>237</width>
       <height>23</height>
      </rect>
@@ -264,7 +303,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>300</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -291,7 +330,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>301</width>
+     <width>293</width>
      <height>21</height>
     </rect>
    </property>

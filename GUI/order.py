@@ -12,7 +12,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class order_controller:
-    def __init__(self, ac, pw, peoples, store, eat_time, order_date):
+    def __init__(self, restaurant, ac, pw, peoples, store, eat_time, order_date):
+        self.restaurant = restaurant
         self.ac = ac
         self.pw = pw
         self.peoples = peoples
@@ -27,6 +28,17 @@ class order_controller:
         # eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
         # store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
         # order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
+        if self.restaurant == '饗饗':
+            self.restaurant = 1
+        elif self.restaurant == '旭集':
+            self.restaurant = 2
+
+        restaurant = self.restaurant
+
+        if restaurant == 1:
+            url = "https://www.feastogether.com.tw/booking/2"
+        else:
+            url = "https://www.feastogether.com.tw/booking/10"
 
         if self.eat_time == '午餐':
             self.eat_time = 1
@@ -37,7 +49,7 @@ class order_controller:
         
         eat_time_num = self.eat_time
 
-        if self.store == '微風店':
+        if self.store == '微風店' or self.store == '旭集信義店':
             self.store = 1
         elif self.store == '新莊店':
             self.store = 2
@@ -64,7 +76,11 @@ class order_controller:
         eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
         eat_time = eat_time_arr[eat_time_num - 1]
 
-        store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
+        if restaurant == 1:
+            store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
+        else:
+            store_num_arr = ['li[rel="旭集信義店"]']
+
         store = store_num_arr[store_num - 1]
 
         date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
@@ -79,7 +95,7 @@ class order_controller:
         driver = webdriver.Chrome(options = option)
         driver.maximize_window()
 
-        driver.get("https://www.feastogether.com.tw/booking/2") # 去到指定頁面
+        driver.get(url) # 去到指定頁面
         current_window = driver.current_window_handle
         # 關閉注意事項
         try:

@@ -19,6 +19,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         
         self.ui.buttonBox.accepted.connect(self.order)
         self.ui.buttonBox.rejected.connect(self.close)
+        self.ui.comboBox_restaurant.currentIndexChanged.connect(self.changeRes)
     def order(self):
         ac = self.ui.line_account.text()
         pw = self.ui.line_password.text()
@@ -26,7 +27,9 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         store = self.ui.comboBox_store.currentText()
         eat_time = self.ui.comboBox_eat_time.currentText()
         order_date = self.ui.dateEdit_order_date.date().toString('yyyy-MM-dd')
+        restaurant = self.ui.comboBox_restaurant.currentText()
 
+        # print('restaurant ' + restaurant, type(restaurant))
         # print('ac ' + ac, type(ac))
         # print('pw ' + pw, type(pw))
         # print('peoples ' + peoples, type(peoples))
@@ -35,6 +38,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         # print('order_date ' + order_date, type(order_date))
         # print("\n")
         self.order_controller = order_controller(
+            restaurant = restaurant,
             ac = ac,
             pw = pw,
             peoples = peoples,
@@ -48,6 +52,16 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         current_time = QDateTime.currentDateTime()
         label_time = current_time.toString('yyyy-MM-dd hh:mm:ss')
         self.ui.label_timer.setText(label_time)
+    def changeRes(self):
+        restaurant = self.ui.comboBox_restaurant.currentText()
+
+        if restaurant == '旭集':
+            self.ui.comboBox_store.removeItem(0)
+            self.ui.comboBox_store.removeItem(1)
+            self.ui.comboBox_store.setItemText(0, "旭集信義店")
+        elif restaurant == '饗饗':
+            self.ui.comboBox_store.removeItem(0)
+            self.ui.comboBox_store.addItems(["微風店", "新莊店"])
 
 if __name__ == '__main__':
     import sys
