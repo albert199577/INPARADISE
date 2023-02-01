@@ -28,34 +28,16 @@ class order_controller:
         # eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
         # store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
         # order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
-        if self.restaurant == '饗饗':
-            self.restaurant = 1
-        elif self.restaurant == '旭集':
-            self.restaurant = 2
 
         restaurant = self.restaurant
-
-        if restaurant == 1:
-            url = "https://www.feastogether.com.tw/booking/2"
-        else:
-            url = "https://www.feastogether.com.tw/booking/10"
-
-        if self.eat_time == '午餐':
-            self.eat_time = 1
-        elif self.eat_time == '下午餐':
-            self.eat_time = 2
-        elif self.eat_time == '晚餐':
-            self.eat_time = 3
+        baseUrl = "https://www.feastogether.com.tw/booking/"
+        if restaurant == 0:
+            url = baseUrl + "2"
+        elif restaurant == 1:
+            url = baseUrl + "10"
         
         eat_time_num = self.eat_time
-
-        if self.store == '微風店' or self.store == '旭集信義店':
-            self.store = 1
-        elif self.store == '新莊店':
-            self.store = 2
-
         store_num = self.store
-
         order_date = self.order_date
 
         now = datetime.datetime.now()
@@ -74,14 +56,14 @@ class order_controller:
             this_month = False
 
         eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
-        eat_time = eat_time_arr[eat_time_num - 1]
+        eat_time = eat_time_arr[eat_time_num]
 
-        if restaurant == 1:
+        if restaurant == 0:
             store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
-        else:
+        elif restaurant == 1:
             store_num_arr = ['li[rel="旭集信義店"]']
 
-        store = store_num_arr[store_num - 1]
+        store = store_num_arr[store_num]
 
         date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
         order_date_field = '.dayContainer > span[aria-label="{ch_month} {day}, {year}"]'.format(ch_month=ch_month, day=day, year=year)
