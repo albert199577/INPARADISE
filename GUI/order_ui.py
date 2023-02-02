@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QTimer, QTime, Qt, QDate, QDateTime
-
+import icon
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -18,6 +18,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(293, 423)
         MainWindow.setWindowTitle("")
         MainWindow.setWindowFlags(Qt.WindowCloseButtonHint)
+        MainWindow.setWindowIcon(QtGui.QIcon(':/favicon.ico'))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.formLayoutWidget = QtWidgets.QWidget(self.centralwidget)
