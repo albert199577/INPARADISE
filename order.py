@@ -11,78 +11,81 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-restaurant = int(input("選擇您要訂購餐聽 [1]饗饗 [2]旭集 "))
-ac = input("Please Enter Your Account :")
-pw = getpass.getpass("Please Your Password :")
-bp = input("Please Enter your Booking peoples :")
-eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
-if restaurant == 1:
-    store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
-    url = "https://www.feastogether.com.tw/booking/2"
-else:
-    store_num = 1
-    url = "https://www.feastogether.com.tw/booking/10"
+# restaurant = int(input("選擇您要訂購餐聽 [1]饗饗 [2]旭集 "))
+# ac = input("Please Enter Your Account :")
+# pw = getpass.getpass("Please Your Password :")
+# bp = input("Please Enter your Booking peoples :")
+# eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
+# if restaurant == 1:
+#     store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
+#     url = "https://www.feastogether.com.tw/booking/Inparadise"
+# else:
+#     store_num = 1
+#     url = "https://www.feastogether.com.tw/booking/Sunrise"
 
-order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
+# order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
 
-now = datetime.datetime.now()
-year = order_date[0:4]
-int_month = int(order_date[5:7])
-month = order_date[5:7]
+# now = datetime.datetime.now()
+# year = order_date[0:4]
+# int_month = int(order_date[5:7])
+# month = order_date[5:7]
 
-day = int(order_date[8:10])
+# day = int(order_date[8:10])
 
-ch_month = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
-ch_month = ch_month[int_month - 1]
+# ch_month = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+# ch_month = ch_month[int_month - 1]
 
-if month == now.strftime("%m") or now.strftime("%Y-%m-%d") == datetime.datetime(now.year, now.month, calendar.monthrange(now.year, now.month)[1]).strftime("%Y-%m-%d"):
-    this_month = True
-else:
-    this_month = False
+# if month == now.strftime("%m") or now.strftime("%Y-%m-%d") == datetime.datetime(now.year, now.month, calendar.monthrange(now.year, now.month)[1]).strftime("%Y-%m-%d"):
+#     this_month = True
+# else:
+#     this_month = False
 
-eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
-eat_time = eat_time_arr[eat_time_num - 1]
+# eat_time_arr = ["wk-type-lunch", "wk-type-afternoon-tea", "wk-type-dinner"]
+# eat_time = eat_time_arr[eat_time_num - 1]
 
-if restaurant == 1:
-    store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
-else:
-    store_num_arr = ['li[rel="旭集信義店"]']
+# if restaurant == 1:
+#     store_num_arr = ['li[rel="微風店"]', 'li[rel="新莊店"]']
+# else:
+#     store_num_arr = ['li[rel="旭集信義店"]']
 
-store = store_num_arr[store_num - 1]
+# store = store_num_arr[store_num - 1]
 
-date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
-order_date_field = '.dayContainer > span[aria-label="{ch_month} {day}, {year}"]'.format(ch_month=ch_month, day=day, year=year)
+# date = 'ul.days > li.notfull > span.notfull[data-col-date="' + order_date + '"]'
+# order_date_field = '.dayContainer > span[aria-label="{ch_month} {day}, {year}"]'.format(ch_month=ch_month, day=day, year=year)
 
 # os._exit(0)
+
+url = "https://www.feastogether.com.tw/booking/Inparadise"
 
 option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True) # 不自動關閉視窗
 option.add_experimental_option("excludeSwitches", ["enable-logging"]) # 不顯示log
 
 driver = webdriver.Chrome(options = option)
-driver.maximize_window()
+# driver.maximize_window()
 
 driver.get(url) # 去到指定頁面
 current_window = driver.current_window_handle
 # 關閉注意事項
 try:
-    WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="modal-news"]/div/div/div/button'))).click()
+    WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/main/div[2]/div/div[1]/div[3]'))).click()
 except:
     print("close error")
 
 # 點擊會員登入
-WebDriverWait(driver, 3000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/div[2]/div/ul/li[1]'))).click()
+WebDriverWait(driver, 3000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/header/div/div/button[2]/div'))).click()
+WebDriverWait(driver, 3000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="login-popover"]/div[3]/div/div[1]/ul/li'))).click()
 
 # 填入會員帳號
-ac_input = WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form-login-header"]/ul/li[1]/input')))
+ac_input = WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mui-3"]')))
 ac_input.send_keys(ac)
 
 # 填入會員密碼
-pw_input = WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form-login-header"]/ul/li[2]/input')))
+pw_input = WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="mui-4"]')))
 pw_input.send_keys(pw)
 
 # 點擊登入
-WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="form-login-header"]/ul/li[4]/button'))).click()
+WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/header/div[2]/div/form/button'))).click()
 
 # 關閉緊報
 try:
