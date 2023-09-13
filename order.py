@@ -87,20 +87,18 @@ pw_input.send_keys(pw)
 # 點擊登入
 WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/header/div[2]/div/form/button'))).click()
 
-# 關閉緊報
-try:
-    WebDriverWait(driver, 2000).until (EC.alert_is_present())
-    alert = driver.switch_to.alert
-    alert.accept()
-    print("alert Exists in page")
-    driver.switch_to.window(current_window)
-except:
-    print("alert does not Exist in page")
 
 i = 0
 while 1:
     i += 1
     try:
+        # 點擊店別
+        WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]'))).click()
+        # 選定店別
+        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/div[3]/div/div/div[3]/div[1]'))).click()
+        # 確定
+        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/div[3]/div/div/div[4]/button'))).click()
+
         # 訂位人數
         book_people = WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.ID, "book_people")))
         # book_people = driver.find_element(By.ID, 'book_people')
@@ -127,9 +125,6 @@ while 1:
 
         driver.find_element(By.ID, 'select_store').click()
 
-        # 點擊店別
-        # CSS_SELECTOR
-        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, store))).click()
 
         # notfull CSS_SELECTOR calendar-li notfull active
         # <li class="calendar-li notfull active">
