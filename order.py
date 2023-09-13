@@ -57,20 +57,27 @@ from selenium.webdriver.support import expected_conditions as EC
 
 url = "https://www.feastogether.com.tw/booking/Inparadise"
 
+bp = int(input("Please Enter your Booking peoples :"))
+# //*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]/div[2]/div/div/div[3]/div[1] 微風店
+# //*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]/div[2]/div/div/div[3]/div[2] 新莊店
+store_num = int(input("選擇您的店別 [1]微風店 [2]新莊店 "))
+store = '//*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]/div[2]/div/div/div[3]/div[{store}]' . format(store=store_num)
+
+# //*[@id="popper-popper"]/div/li[2] 午餐
+# //*[@id="popper-popper"]/div/li[3] 下午餐
+# //*[@id="popper-popper"]/div/li[4] 晚餐
+eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
+eat_time = '//*[@id="popper-popper"]/div/li[{time}]' . format(time=eat_time_num + 1)
+
 option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True) # 不自動關閉視窗
 option.add_experimental_option("excludeSwitches", ["enable-logging"]) # 不顯示log
 
 driver = webdriver.Chrome(options = option)
-# driver.maximize_window()
+driver.maximize_window()
 
 driver.get(url) # 去到指定頁面
 current_window = driver.current_window_handle
-# 關閉注意事項
-try:
-    WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/main/div[2]/div/div[1]/div[3]'))).click()
-except:
-    print("close error")
 
 # 點擊會員登入
 WebDriverWait(driver, 3000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/header/div/div/button[2]/div'))).click()
@@ -92,51 +99,41 @@ i = 0
 while 1:
     i += 1
     try:
+        # 關閉注意事項
+        try:
+            WebDriverWait(driver, 2000).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/main/div[2]/div/div[1]/div[3]'))).click()
+        except:
+            print("close error")
+        
+        print("try store")
         # 點擊店別
         WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]'))).click()
         # 選定店別
-        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/div[3]/div/div/div[3]/div[1]'))).click()
+        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, store))).click()
         # 確定
-        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/div[3]/div/div/div[4]/button'))).click()
+        # WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[2]/div[3]/div/div/div[4]/button'))).click()
 
-        # 訂位人數
-        book_people = WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.ID, "book_people")))
-        # book_people = driver.find_element(By.ID, 'book_people')
-        # 填上訂位人數
-        book_people.send_keys(bp)
-
-        # 點擊日期
-        driver.find_element(By.CSS_SELECTOR, '.flatpickr.flatpickr-input').click()
-
-        # 點擊下個月
-        if this_month == False:
-            driver.find_element(By.CLASS_NAME, 'flatpickr-next-month').click()
-
-        # 點擊下個月最後一天
-        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.CSS_SELECTOR, order_date_field))).click()
-
+        print("try people")
+        # 點擊成員
+        WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[2]/div[2]'))).click()
+        # 選定成員
+        for i in range(bp):
+            WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[2]/div[2]/div[2]/div/div/div[1]/div/button[2]'))).click()
+        # 確定
+        # WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[3]/div[3]/div/div/button'))).click()
+        
+        print("try eat time")
         # 點擊餐別
-        # CSS_SELECTOR
-        driver.find_element(By.CLASS_NAME, eat_time).click()
+        WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[3]/div[2]'))).click()
+        # 選定餐別
+        WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, eat_time))).click()
+        # 確定
+        # WebDriverWait(driver, 2000).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[3]/div[3]/div/div/button'))).click()
+        
+        print("try eat date")
+        # 點擊餐別
+        break;
 
-        js = "document.body.scrollTo(0, 1000);"
-
-        driver.execute_script(js)
-
-        driver.find_element(By.ID, 'select_store').click()
-
-
-        # notfull CSS_SELECTOR calendar-li notfull active
-        # <li class="calendar-li notfull active">
-        #     <span class="calendar-col notfull" data-col-date="2023-01-17">
-        #         <span class="tag"></span>
-        #         <span class="col-date">17</span>
-        #         <span class="col-seat-status">
-        #             <i class="seat"></i>
-        #         <span class="seat-num">即將滿席</span>
-        #         </span>
-        #     </span>
-        # </li>
 
         WebDriverWait(driver, 1, 1).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
         print('Can order')
