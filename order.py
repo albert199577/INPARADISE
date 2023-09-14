@@ -69,6 +69,26 @@ store = '//*[@id="booking-area"]/form/div/div[3]/div[1]/div[2]/div[2]/div/div/di
 eat_time_num = int(input("選擇您的餐次 [1]午餐 [2]下午餐 [3]晚餐 "))
 eat_time = '//*[@id="popper-popper"]/div/li[{time}]' . format(time=eat_time_num + 1)
 
+order_date = input("輸入您要訂餐的日期 ex:2023-01-24 ")
+
+def transferDate(date):
+    year = int(date[0:4])
+    month = int(date[5:7])
+    day = int(date[8:10])
+    week_list = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+    weekday = week_list[datetime.date(year, month, day).weekday()]
+
+    temp = str(year) + '年' + str(month) + '月' + str(day) + '日 ' + weekday
+    return temp
+
+order_date = transferDate(order_date)
+
+order_date_field = 'div[aria-label="Choose ' + order_date + '"]'
+# aria-label="Choose 2023年9月15日 星期五"
+
+# os._exit(0)
+
+
 option = webdriver.ChromeOptions()
 option.add_experimental_option("detach", True) # 不自動關閉視窗
 option.add_experimental_option("excludeSwitches", ["enable-logging"]) # 不顯示log
@@ -132,10 +152,13 @@ while 1:
         
         print("try eat date")
         # 點擊餐別
-        break;
+        WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="booking-area"]/form/div/div[3]/div[4]/div[2]'))).click()
+        # 選定餐別
+        WebDriverWait(driver, 1, 1).until(EC.visibility_of_element_located((By.CSS_SELECTOR, order_date_field))).click()
 
-
-        WebDriverWait(driver, 1, 1).until(EC.visibility_of_element_located((By.CSS_SELECTOR, date))).click()
+        # 點擊搜尋
+        WebDriverWait(driver, 5000).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="root"]/div/main/div/div[2]/div[1]/div[1]/div/form/div/div[2]/div[5]'))).click()
+        
         print('Can order')
         break;
     except:
